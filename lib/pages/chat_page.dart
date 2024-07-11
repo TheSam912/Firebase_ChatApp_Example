@@ -33,7 +33,6 @@ class _ChatPageState extends State<ChatPage> {
         }
       },
     );
-
     Future.delayed(const Duration(milliseconds: 500),() => scrollDown(),);
   }
 
