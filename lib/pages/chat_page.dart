@@ -33,7 +33,10 @@ class _ChatPageState extends State<ChatPage> {
         }
       },
     );
-    Future.delayed(const Duration(milliseconds: 500),() => scrollDown(),);
+    Future.delayed(
+      const Duration(milliseconds: 500),
+      () => scrollDown(),
+    );
   }
 
   @override
@@ -67,6 +70,7 @@ class _ChatPageState extends State<ChatPage> {
         backgroundColor: Theme.of(context).colorScheme.primary,
         elevation: 0,
         title: Text(widget.receiverEmail),
+        actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.list))],
       ),
       body: Padding(
         padding: const EdgeInsets.only(bottom: 30),
@@ -103,7 +107,11 @@ class _ChatPageState extends State<ChatPage> {
               return Container(
                   alignment: _alignment,
                   child: MyBubble(
-                      message: data['message'], isCurrentUser: isCurrentUser));
+                    message: data['message'],
+                    isCurrentUser: isCurrentUser,
+                    messageId: doc.id,
+                    userId: data['senderID'],
+                  ));
             },
           ).toList(),
         );

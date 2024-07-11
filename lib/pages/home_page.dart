@@ -51,7 +51,8 @@ class _HomePageState extends State<HomePage> {
 
   buildUserList() {
     return StreamBuilder(
-      stream: chatService.getUserStream(),
+      // stream: chatService.getUserStream(),
+      stream: chatService.getUsersExcludingBlocked(),
       builder: (context, snapshot) {
         if (snapshot.hasError) {
           return const Text("ERROR !!!!");
