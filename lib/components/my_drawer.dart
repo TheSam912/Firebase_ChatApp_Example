@@ -19,7 +19,7 @@ class _MyDrawerState extends State<MyDrawer> {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: Colors.grey.shade200,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -30,15 +30,27 @@ class _MyDrawerState extends State<MyDrawer> {
                       child:
                           Icon(Icons.message, size: 50, color: Colors.black))),
               ListTile(
-                title: const Text("H O M E"),
-                leading: const Icon(Icons.home),
+                title: Text(
+                  "H O M E",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                ),
+                leading: Icon(
+                  Icons.home,
+                  color: Theme.of(context).colorScheme.secondary,
+                ),
                 onTap: () {
                   Navigator.pop(context);
                 },
               ),
               ListTile(
-                title: const Text("S E T T I N G S"),
-                leading: const Icon(Icons.settings),
+                title: Text(
+                  "S E T T I N G S",
+                  style:
+                      TextStyle(color: Theme.of(context).colorScheme.secondary),
+                ),
+                leading: Icon(Icons.settings,
+                    color: Theme.of(context).colorScheme.secondary),
                 onTap: () {
                   Navigator.pop(context);
                   Navigator.push(context, MaterialPageRoute(
@@ -53,8 +65,13 @@ class _MyDrawerState extends State<MyDrawer> {
           Padding(
             padding: const EdgeInsets.only(bottom: 40),
             child: ListTile(
-              title: const Text("L O G O U T"),
-              leading: const Icon(Icons.logout),
+              title: Text(
+                "L O G O U T",
+                style:
+                    TextStyle(color: Theme.of(context).colorScheme.secondary),
+              ),
+              leading: Icon(Icons.logout,
+                  color: Theme.of(context).colorScheme.secondary),
               onTap: () {
                 logOut();
               },

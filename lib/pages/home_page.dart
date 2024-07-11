@@ -19,12 +19,30 @@ class _HomePageState extends State<HomePage> {
   AuthService authService = AuthService();
   ChatService chatService = ChatService();
 
+  showUserEmail() {
+    String? detail = authService.getCurrentUse()?.email;
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text(detail.toString()),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.primary,
       appBar: AppBar(
         title: const Text("HOME"),
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        elevation: 0,
+        actions: [
+          IconButton(
+              onPressed: () => showUserEmail(), icon: Icon(Icons.info_outline))
+        ],
       ),
       drawer: const MyDrawer(),
       body: buildUserList(),
@@ -55,37 +73,37 @@ class _HomePageState extends State<HomePage> {
   }
 
   buildUserItemList(Map<String, dynamic> userdata, BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        Navigator.push(context, MaterialPageRoute(
-          builder: (context) {
-            return ChatPage(
-              receiverEmail: userdata['email'],
-            );
+    if (userdata["email"] != authService.getCurrentUse()?.email) {
+      return Container(
+        margin: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(12),
+            border: Border.all(color: Colors.black, width: 2),
+            color: Colors.white),
+        child: TextButton.icon(
+          onPressed: () {
+            Navigator.push(context, MaterialPageRoute(
+              builder: (context) {
+                return ChatPage(
+                  receiverEmail: userdata['email'],
+                  receiverID: userdata['uid'],
+                );
+              },
+            ));
           },
-        ));
-      },
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(12),
-              border: Border.all(color: Colors.black, width: 2),
-              color: Colors.white),
-          child: TextButton.icon(
-            onPressed: () {},
-            label: Text(
-              userdata['email'],
-              style: const TextStyle(
-                  color: Colors.black, fontWeight: FontWeight.w700),
-            ),
-            icon: const Icon(
-              Icons.person,
-              color: Colors.black,
-            ),
+          label: Text(
+            userdata['email'],
+            style: const TextStyle(
+                color: Colors.black, fontWeight: FontWeight.w700),
+          ),
+          icon: const Icon(
+            Icons.person,
+            color: Colors.black,
           ),
         ),
-      ),
-    );
+      );
+    } else {
+      return Container();
+    }
   }
 }
