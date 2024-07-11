@@ -1,16 +1,19 @@
-import 'package:chat_app_firebase/theme/light_mode.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MyTextField extends StatelessWidget {
   String hintText;
+  FocusNode? focusNode;
   bool obscure;
   TextEditingController controller;
+
 
   MyTextField(
       {super.key,
       required this.hintText,
       required this.obscure,
-      required this.controller});
+      required this.controller,
+      this.focusNode});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +21,7 @@ class MyTextField extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 8),
       child: TextField(
         controller: controller,
+        focusNode: focusNode,
         decoration: InputDecoration(
             fillColor: Theme.of(context).colorScheme.secondary,
             filled: true,
